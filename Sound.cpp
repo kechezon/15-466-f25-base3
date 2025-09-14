@@ -345,7 +345,7 @@ void SDLCALL mix_audio(void *, SDL_AudioStream *stream_, int additional_amount, 
 		Sound::PlayingSample &playing_sample = **si; //much more convenient than writing ** everywhere.
 
 		//Figure out sample panning/volume at start...
-		LR start_pan;
+		LR start_pan; // really linearly interpolates, which is good enough
 		if (!(playing_sample.pan.value == playing_sample.pan.value)) {
 			//3D panning
 			compute_pan_from_listener_and_position(

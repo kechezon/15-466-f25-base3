@@ -28,6 +28,29 @@ struct PlayMode : Mode {
 	//local copy of the game scene (so code can change it during gameplay):
 	Scene scene;
 
+	// game world
+	float X_MIN, X_MAX, Y_MIN, Y_MAX, CENTER_Z, EXPLOSION_DEPTH;
+
+	// Level info
+	float bpm;
+	std::tuple< size_t, size_t > timeSignature;
+	float pitchRange = 20;
+	std::tuple< float, float > EXPLOSION_RADIUS_RANGE;
+
+	// General needs
+	struct GameObject;
+	struct ColliderSphere;
+
+	// Game specific needs
+	struct Player;
+	struct ChimeBomb; // the audio and visual cue
+	struct Explosion; // the actual explosion
+
+	std::list< ChimeBomb > chimeBombs; // this is basically "the level" (all the chimeBombs)
+	std::list< Explosion > explosions; // this is a more dynamic list
+
+	std::list<Scene::Drawable>::iterator PlayMode::new_drawable(Mesh const &mesh, Scene::Transform *tf);
+
 	//hexapod leg to wobble:
 	Scene::Transform *hip = nullptr;
 	Scene::Transform *upper_leg = nullptr;
@@ -44,6 +67,9 @@ struct PlayMode : Mode {
 
 	//car honk sound:
 	std::shared_ptr< Sound::PlayingSample > honk_oneshot;
+
+	// music playing in the background
+	std::shared_ptr< Sound::PlayingSample > sound_track;
 	
 	//camera:
 	Scene::Camera *camera = nullptr;

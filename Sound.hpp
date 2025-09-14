@@ -15,6 +15,7 @@ namespace Sound {
 //Sample objects hold mono (one-channel) audio.
 struct Sample {
 	//Load from a '.wav' or '.opus' file.
+	// Jim recommends .opus file. Find it in your nest files
 	//  will warn and convert if sound is not already 48kHz mono:
 	Sample(std::string const &filename);
 	
@@ -66,6 +67,7 @@ struct PlayingSample {
 	//internals:
 	//NOTE: PlayingSample is used in a separate thread; so setting these values directly
 	// may result in bad results. Instead, use the functions above, which perform locking!
+	// Don't want to touch this stuff below
 	std::vector< float > const &data; //reference to sample data being played
 	uint32_t i = 0; //next data value to read
 	bool loop = false; //should playback loop after data runs out?
@@ -123,7 +125,9 @@ std::shared_ptr< PlayingSample > loop_3D(
 	float half_volume_radius = std::numeric_limits< float >::infinity()
 );
 
-//Listener controls the panning of "3D" samples (ones played using the "position" version of the play functions):
+// used to control the thing listening to the 3D samples (used for panning)
+// Don't necessarily want to hear things from the camera's perspective/volume
+// Listener controls the panning of "3D" samples (ones played using the "position" version of the play functions):
 struct Listener {
 	void set_position_right(glm::vec3 const &new_position, glm::vec3 const &new_right, float ramp = 1.0f / 60.0f);
 
