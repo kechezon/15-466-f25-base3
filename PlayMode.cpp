@@ -22,6 +22,7 @@ float CENTER_Z = 10.f;
 float CUE_DEPTH = 0.5f;
 auto timeSignature = std::make_tuple(4, 4);
 auto EXPLOSION_RADIUS_RANGE = std::make_tuple(1.f, 6.f);
+bool victory = false;
 
 Load< MeshBuffer > game_meshes(LoadTagDefault, []() -> MeshBuffer const * {
 	MeshBuffer const *ret = new MeshBuffer(data_path("egbdf.pnct"));
@@ -602,30 +603,35 @@ void PlayMode::update(float elapsed) {
 	// update game entitites
 	{
 		if (player.health > 0) {
-			for (auto iter = chimeBombs.begin(); iter != chimeBombs.end(); /* later */) {
-				if (!(iter->update(elapsed, this))) {
-					// chime bomb still exists
-					iter++;
+			if (chimeBombs.size() > 0 && explosions.size() > 0) {
+				for (auto iter = chimeBombs.begin(); iter != chimeBombs.end(); /* later */) {
+					if (!(iter->update(elapsed, this))) {
+						// chime bomb still exists
+						iter++;
+					}
+					else {
+						assert(iter->detonateTimer >= iter->START_BEAT); // detonated
+						auto const detonated = iter;
+						iter++;
+						chimeBombs.erase(detonated);
+					}
 				}
-				else {
-					assert(iter->detonateTimer >= iter->START_BEAT); // detonated
-					auto const detonated = iter;
-					iter++;
-					chimeBombs.erase(detonated);
+
+				for (auto iter = explosions.begin(); iter != explosions.end(); /* later */) {
+					if (!((*iter)->update(elapsed))) {
+						// explosion is still going
+						iter++;
+					}
+					else {
+						assert((*iter)->timer >= (*iter)->DURATION); // dissapated
+						auto const finished = iter;
+						iter++;
+						explosions.erase(finished);
+					}
 				}
 			}
-
-			for (auto iter = explosions.begin(); iter != explosions.end(); /* later */) {
-				if (!((*iter)->update(elapsed))) {
-					// explosion is still going
-					iter++;
-				}
-				else {
-					assert((*iter)->timer >= (*iter)->DURATION); // dissapated
-					auto const finished = iter;
-					iter++;
-					explosions.erase(finished);
-				}
+			else { // victory!
+				victory = true;
 			}
 		}
 		player.update(elapsed, this);
@@ -687,6 +693,17 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 			glm::vec3(-aspect + 10.f * H + ofs, -1.0 + + 0.1f * H + ofs, 0.0),
 			glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
 			glm::u8vec4(0xff, 0xff, 0xff, 0x00));
+
+		if (victory) {
+			lines.draw_text("Victory!" + std::to_string(player.faceScore),
+				glm::vec3(-aspect + 10.f * H, -1.0 + 5.f * H, 0.0),
+				glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
+				glm::u8vec4(0x00, 0x00, 0x00, 0x00));
+			lines.draw_text("Victory!" + std::to_string(player.faceScore),
+				glm::vec3(-aspect + 10.f * H + ofs, -1.0 + + 5.f * H + ofs, 0.0),
+				glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
+				glm::u8vec4(0x00, 0xff, 0xff, 0x00));
+		}
 	}
 	GL_ERRORS();
 }
