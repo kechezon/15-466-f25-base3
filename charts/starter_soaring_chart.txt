@@ -1,0 +1,527 @@
+% tutorial
+1 ,1.0,0      ,6 ,0.500,bell_chime_A3.wav
+
+3 ,1.0,0      ,18 ,0.500,bell_chime_A4.wav
+
+5 ,1.0,-0.900,14,0.500,bell_chime_F4.wav
+
+7 ,1.0,0.9000,14,0.500,bell_chime_F4.wav
+
+9 ,1.0,0.7000,23,0.125,bell_chime_D5.wav
+
+10,1.0,-0.700,18,0.250,bell_chime_A4.wav
+
+11,1.0,0.5000,14,0.375,bell_chime_F4.wav
+
+12,1.0,-0.500,11,0.5,bell_chime_D4.wav
+
+13,1.0,0.3000,25,0.5,bell_chime_E5.wav
+13,3.0,0.3000,23,0.5,bell_chime_D5.wav
+
+14,1.0,-0.300,20,0.5,bell_chime_B4.wav
+14,3.0,-0.300,17,0.5,bell_chime_G#4.wav
+
+15,1.0,-0.1000,14,0.5,bell_chime_F4.wav
+15,2.0,0.10000,13,0.5,bell_chime_E4.wav
+15,3.0,-0.1000,11,0.5,bell_chime_D4.wav
+15,4.0,0.10000,9 ,0.5,bell_chime_C4.wav
+
+16,1.0,0      ,13,0.5,bell_chime_E4.wav
+16,1.5,0      ,11,0.5,bell_chime_D4.wav
+16,2.0,0      ,9 ,0.5,bell_chime_C4.wav
+16,2.5,0      ,8 ,0.5,bell_chime_B3.wav
+16,3.0,0      ,11,0.5,bell_chime_D4.wav
+16,3.5,0      ,9 ,0.5,bell_chime_C4.wav
+16,4.0,0      ,8 ,0.5,bell_chime_B3.wav
+16,4.5,0      ,5 ,0.5,bell_chime_G#3.wav
+
+% A1
+17,1.0,0.5   ,25,0.5,bell_chime_E5.wav
+17,2.0,0.375 ,23,0.5,bell_chime_D5.wav
+17,2.5,0.250 ,21,0.5,bell_chime_C5.wav
+17,3.0,0.125 ,20,0.5,bell_chime_B4.wav
+17,4.0,0     ,18,0.5,bell_chime_A4.wav
+
+19,1.0,-0.500,21,0.5,bell_chime_C5.wav
+19,2.0,-0.375,20,0.5,bell_chime_B4.wav
+19,2.5,-0.250,18,0.5,bell_chime_A4.wav
+19,3.0,-0.125,16,0.5,bell_chime_G4.wav
+19,4.0,0.0000,14,0.5,bell_chime_F4.wav
+
+20,1.0,0.3000,13,0.5,bell_chime_E4.wav
+20,3.0,-0.200,11,0.5,bell_chime_D4.wav
+
+21,1.0,-0.4  ,10,0.5,bell_chime_C4.wav
+21,3.0,-0.3  ,6 ,0.5,bell_chime_A3.wav
+21,3.5,-0.3  ,8 ,0.5,bell_chime_B3.wav
+21,4.0,-0.3  ,10,0.5,bell_chime_C4.wav
+
+22,1.0,0.2    ,12,0.5,bell_chime_D4.wav
+22,3.0,0.1    ,9 ,0.5,bell_chime_B3.wav
+22,3.5,0.1    ,10,0.5,bell_chime_C4.wav
+22,4.0,0.1    ,12,0.5,bell_chime_D4.wav
+22,4.5,0.1    ,16,0.5,bell_chime_G4.wav
+
+23,1.0,0      ,13,0.5,bell_chime_E4.wav
+
+25,1.0,-0.7500,25,0.5,bell_chime_E5.wav
+25,2.0,-0.5000,23,0.5,bell_chime_D5.wav
+25,2.5,-0.2500,21,0.5,bell_chime_C5.wav
+25,3.0,0.00000,20,0.5,bell_chime_B4.wav
+25,4.0,0.25000,18,0.5,bell_chime_A4.wav
+
+27,1.0,0.25000,21,0.5,bell_chime_C5.wav
+27,2.0,0.37500,20,0.5,bell_chime_B4.wav
+27,2.5,0.50000,18,0.5,bell_chime_A4.wav
+27,3.0,0.62500,16,0.5,bell_chime_G4.wav
+27,4.0,0.75000,23,0.5,bell_chime_D5.wav
+
+28,1.0,0.70000,20,0.5,bell_chime_B4.wav
+28,1.0,-0.7000,13,0.5,bell_chime_E4.wav
+28,3.0,0.60000,20,0.5,bell_chime_C4.wav
+28,3.0,-0.6000,13,0.5,bell_chime_E4.wav
+28,4.0,0.70000,20,0.5,bell_chime_B4.wav
+28,4.0,-0.7000,13,0.5,bell_chime_E4.wav
+
+29,1.0,0.40000,18,0.5,bell_chime_A4.wav
+29,1.0,-0.4000,14,0.5,bell_chime_F4.wav
+29,3.0,0.30000,21,0.5,bell_chime_C5.wav
+29,3.0,-0.3000,18,0.5,bell_chime_A4.wav
+
+30,1.0,0.20000,23,0.5,bell_chime_D5.wav
+30,1.0,-0.2000,16,0.5,bell_chime_G4.wav
+30,3.0,0.10000,16,0.5,bell_chime_G4.wav
+30,3.0,-0.1000,11,0.5,bell_chime_D4.wav
+
+31,1.0,0      ,18,0.5,bell_chime_A4.wav
+31,1.0,0      ,13,0.5,bell_chime_E4.wav
+
+% B1
+33,1.0,-0.2500,24,0.5,bell_chime_D#5.wav
+33,2.0,-0.2500,23,0.5,bell_chime_D5.wav
+33,2.5,-0.2500,21,0.5,bell_chime_C5.wav
+33,3.0,-0.2500,19,0.5,bell_chime_A#4.wav
+33,4.0,-0.2000,17,0.5,bell_chime_G#4.wav
+
+34,1.0,-0.2000,16,0.5,bell_chime_G4.wav
+
+35,1.0,0.2500,21,0.5,bell_chime_C5.wav
+35,2.0,0.2500,19,0.5,bell_chime_A#4.wav
+35,2.5,0.2000,17,0.5,bell_chime_G#4.wav
+35,3.0,0.1000,16,0.5,bell_chime_G4.wav
+35,4.0,-0.150,14,0.5,bell_chime_F4.wav
+
+36,1.0,-0.100,12,0.7,bell_chime_D#4.wav
+36,2.0,0.1000,16,0.5,bell_chime_G4.wav
+36,2.0,-0.300,12,0.5,bell_chime_D#4.wav
+36,3.0,0.3000,21,0.5,bell_chime_C5.wav
+36,3.0,-0.500,16,0.5,bell_chime_G4.wav
+36,4.0,0.5000,23,0.5,bell_chime_D5.wav
+36,4.0,-0.700,14,0.5,bell_chime_F4.wav
+
+37,1.0,0.3000,24,0.8,bell_chime_D#5.wav
+37,1.0,-0.500,16,0.8,bell_chime_G4.wav
+
+38,1.0,0.8000,23,0.5,bell_chime_D5.wav
+38,1.5,0.8000,24,0.5,bell_chime_D#5.wav
+38,2.0,0.6000,21,0.5,bell_chime_C5.wav
+38,2.5,0.6000,23,0.5,bell_chime_D5.wav
+38,3.0,0.4000,19,0.7,bell_chime_A#4.wav
+38,4.0,0.2000,21,0.5,bell_chime_C5.wav
+38,4.5,0.2000,23,0.5,bell_chime_D5.wav
+
+39,1.0,0.0000,16,0.8,bell_chime_G4.wav
+39,1.0,0.0000,7,0.8,bell_chime_A#3.wav
+
+41,1.0,0.8000,24,0.5,bell_chime_D#5.wav
+41,1.0,-0.800,16,0.4,bell_chime_G4.wav
+41,2.0,0.6000,23,0.5,bell_chime_D5.wav
+41,2.0,-0.600,16,0.4,bell_chime_G4.wav
+41,2.5,0.6000,21,0.5,bell_chime_C5.wav
+41,2.5,-0.600,12,0.4,bell_chime_D#4.wav
+41,3.0,0.4000,19,0.5,bell_chime_A#4.wav
+41,3.0,-0.400,12,0.4,bell_chime_D#4.wav
+41,4.0,0.2000,17,0.5,bell_chime_G#4.wav
+41,4.0,-0.200,12,0.4,bell_chime_D#4.wav
+
+42,1.0,0,16,0.5,bell_chime_G4.wav
+42,1.0,0,12,0.5,bell_chime_D#4.wav
+
+43,1.0,-0.400,21,0.5,bell_chime_C5.wav
+43,1.0,0.4000,14,0.4,bell_chime_F4.wav
+43,2.0,-0.300,19,0.5,bell_chime_A#4.wav
+43,2.0,0.3000,14,0.4,bell_chime_F4.wav
+43,2.5,-0.300,17,0.5,bell_chime_G#4.wav
+43,2.5,0.3000,11,0.4,bell_chime_D4.wav
+43,3.0,-0.200,16,0.5,bell_chime_G4.wav
+43,3.0,0.2000,11,0.4,bell_chime_D4.wav
+43,4.0,-0.100,14,0.5,bell_chime_F4.wav
+43,4.0,0.1000,7 ,0.4,bell_chime_A#3.wav
+
+44,1.0,-0.150,12,0.5,bell_chime_D#4.wav
+44,1.0,-0.150,7 ,0.5,bell_chime_A#3.wav
+44,3.0,0.1500,14,0.5,bell_chime_F4.wav
+44,3.0,0.1500,7 ,0.5,bell_chime_A#3.wav
+
+45,1.0,0.5000,16,0.5,bell_chime_G4.wav
+45,1.0,-0.500,10,0.5,bell_chime_C4.wav
+
+46,1.0,-0.500,17,0.5,bell_chime_A#4.wav
+46,1.0,0.5000,14,0.5,bell_chime_F4.wav
+
+47,1.0,0.2000,18,0.5,bell_chime_A4.wav
+47,1.0,-0.200,12,0.5,bell_chime_D4.wav
+
+48,1.0,0.2000,20,0.5,bell_chime_B4.wav
+48,1.0,-0.200,17,0.5,bell_chime_G#4.wav
+
+% A2
+49,1.0,-0.6000,25,0.6,bell_chime_E5.wav
+49,2.0,-0.4000,23,0.6,bell_chime_D5.wav
+49,2.5,-0.2000,21,0.6,bell_chime_C5.wav
+49,3.0,0.00000,20,0.6,bell_chime_B4.wav
+49,4.0,0.20000,18,0.6,bell_chime_A4.wav
+
+50,1.0,0.60000,13,0.6,bell_chime_E4.wav
+50,2.0,0.40000,11,0.6,bell_chime_D4.wav
+50,2.5,0.20000,9,0.6,bell_chime_C4.wav
+50,3.0,0.00000,8,0.6,bell_chime_B3.wav
+50,4.0,-0.2000,6,0.6,bell_chime_A3.wav
+
+51,1.0,0.40000,21,0.6,bell_chime_C5.wav
+51,2.0,0.20000,20,0.6,bell_chime_B4.wav
+51,2.5,0.00000,18,0.6,bell_chime_A4.wav
+51,3.0,-0.2000,16,0.6,bell_chime_G4.wav
+51,4.0,-0.4000,14,0.6,bell_chime_F4.wav
+
+52,1.0,0.3000,13,0.6,bell_chime_E4.wav
+52,3.0,-0.200,11,0.6,bell_chime_D4.wav
+52,1.0,-0.4000,13,0.6,bell_chime_E4.wav
+52,2.0,-0.2000,11,0.6,bell_chime_D4.wav
+52,2.5,0.00000,9,0.6,bell_chime_C4.wav
+52,3.0,0.20000,8,0.6,bell_chime_B3.wav
+52,4.0,0.40000,4,0.6,bell_chime_G3.wav
+
+53,1.0,-0.8000,10,0.6,bell_chime_C4.wav
+53,3.0,-0.6000,6 ,0.6,bell_chime_A3.wav
+53,3.5,-0.6000,8 ,0.6,bell_chime_B3.wav
+53,4.0,-0.6000,10,0.6,bell_chime_C4.wav
+53,1.0,0.20000,6 ,0.6,bell_chime_A3.wav
+53,3.0,0.00000,2 ,0.6,bell_chime_F3.wav
+53,3.5,0.00000,4 ,0.6,bell_chime_G3.wav
+53,4.0,0.00000,6 ,0.6,bell_chime_A3.wav
+
+54,1.0,-0.3000,12,0.6,bell_chime_D4.wav
+54,3.0,-0.1000,9,0.6,bell_chime_B3.wav
+54,3.5,-0.1000,10,0.6,bell_chime_C4.wav
+54,4.0,0.10000,12,0.6,bell_chime_D4.wav
+54,4.5,0.10000,16,0.6,bell_chime_G4.wav
+54,1.0,0.70000,8,0.6,bell_chime_B3.wav
+54,3.0,0.50000,4,0.6,bell_chime_G3.wav
+54,3.5,0.50000,6,0.6,bell_chime_A3.wav
+54,4.0,0.50000,6,0.6,bell_chime_B3.wav
+
+55,1.0,0.35000,13,0.6,bell_chime_E4.wav
+55,1.0,-0.2000,9,0.6,bell_chime_C4.wav
+55,3.0,0.00000,9,0.6,bell_chime_C4.wav
+55,3.5,0.00000,11,0.6,bell_chime_D4.wav
+55,4.0,0.00000,9,0.6,bell_chime_C4.wav
+55,4.5,0.00000,6,0.6,bell_chime_A3.wav
+
+56,1.0,-0.7500,8,0.6,bell_chime_B3.wav
+56,2.0,-0.5000,6,0.6,bell_chime_A3.wav
+56,2.5,-0.2500,2,0.6,bell_chime_F3.wav
+56,3.0,0.00000,1,0.6,bell_chime_E3.wav
+56,4.0,0.25000,5,0.6,bell_chime_G#3.wav
+
+57,1.0,0.80000,25,0.6,bell_chime_E5.wav
+57,2.0,-0.6000,23,0.6,bell_chime_D5.wav
+57,2.5,0.40000,21,0.6,bell_chime_C5.wav
+57,3.0,-0.2000,20,0.6,bell_chime_B4.wav
+57,4.0,0.00000,18,0.6,bell_chime_A4.wav
+
+58,1.0,-0.50000,13,0.6,bell_chime_E4.wav
+58,2.0,-0.25000,11,0.6,bell_chime_D4.wav
+58,2.5,0.000000,9,0.6,bell_chime_C4.wav
+58,3.0,0.250000,8,0.6,bell_chime_B3.wav
+58,4.0,0.500000,6,0.6,bell_chime_A3.wav
+
+59,1.0,-0.8000,21,0.5,bell_chime_C5.wav
+59,2.0,0.60000,20,0.5,bell_chime_B4.wav
+59,2.5,-0.4000,18,0.5,bell_chime_A4.wav
+59,3.0,0.20000,16,0.5,bell_chime_G4.wav
+59,4.0,0.75000,23,0.5,bell_chime_D5.wav
+
+60,1.0,0.500000,13,0.6,bell_chime_C4.wav
+60,2.0,0.250000,11,0.6,bell_chime_B3.wav
+60,2.5,0.000000,9 ,0.6,bell_chime_A3.wav
+60,3.0,-0.25000,8 ,0.6,bell_chime_G3.wav
+60,4.0,-0.50000,6 ,0.6,bell_chime_D4.wav
+
+61,1.0,-0.8000,18,0.6,bell_chime_A4.wav
+61,1.0,-0.8000,14,0.6,bell_chime_F4.wav
+61,3.0,0.70000,21,0.6,bell_chime_C5.wav
+61,3.0,0.70000,18,0.6,bell_chime_A4.wav
+
+62,1.0,-0.6000,23,0.6,bell_chime_D5.wav
+62,1.0,-0.6000,16,0.6,bell_chime_G4.wav
+62,3.0,0.50000,16,0.5,bell_chime_G4.wav
+62,3.0,0.50000,11,0.5,bell_chime_D4.wav
+
+63,1.0,-0.4000,18,0.7,bell_chime_A4.wav
+63,1.0,-0.4000,13,0.7,bell_chime_E4.wav
+63,1.0,0.20000,9,0.6,bell_chime_C4.wav
+63,2.0,0.00000,6,0.6,bell_chime_A3.wav
+63,3.0,-0.2000,8 ,0.6,bell_chime_B3.wav
+63,4.0,0.20000,11,0.6,bell_chime_D4.wav
+
+64,1.0,0.40000,9 ,0.6,bell_chime_C4.wav
+64,1.5,0.60000,8 ,0.6,bell_chime_B3.wav
+64,2.0,0.40000,6 ,0.6,bell_chime_A3.wav
+64,2.5,0.20000,4 ,0.6,bell_chime_G3.wav
+64,3.0,-0.1000,6 ,0.6,bell_chime_A3.wav
+64,3.0,-0.4000,1 ,0.6,bell_chime_E3.wav
+
+% B2
+65,1.0,0.60000,24,0.6,bell_chime_D#5.wav
+65,2.0,0.60000,23,0.6,bell_chime_D5.wav
+65,2.5,0.60000,21,0.6,bell_chime_C5.wav
+65,3.0,0.60000,19,0.6,bell_chime_A#4.wav
+65,4.0,0.60000,17,0.6,bell_chime_G#4.wav
+
+66,1.0,-0.5000,12,0.6,bell_chime_D#4.wav
+66,2.0,-0.3000,11,0.6,bell_chime_D4.wav
+66,2.5,-0.1000,9 ,0.6,bell_chime_C4.wav
+66,3.0,0.10000,7 ,0.6,bell_chime_A#3.wav
+66,4.0,0.30000,5 ,0.6,bell_chime_G#3.wav
+
+67,1.0,0.70000,21,0.6,bell_chime_C5.wav
+67,2.0,0.70000,19,0.6,bell_chime_A#4.wav
+67,2.5,0.70000,17,0.6,bell_chime_G#4.wav
+67,3.0,0.70000,16,0.6,bell_chime_G4.wav
+67,4.0,0.70000,14,0.6,bell_chime_F4.wav
+67,1.0,0.40000,4,0.7,bell_chime_G3.wav
+67,3.0,0.20000,5,0.7,bell_chime_G#3.wav
+
+68,1.0,0.5000,12,0.8,bell_chime_D#4.wav
+68,2.0,0.8000,16,0.6,bell_chime_G4.wav
+68,2.0,0.8000,12,0.6,bell_chime_D#4.wav
+68,3.0,0.5000,21,0.6,bell_chime_C5.wav
+68,3.0,0.5000,16,0.6,bell_chime_G4.wav
+68,4.0,0.8000,23,0.6,bell_chime_D5.wav
+68,4.0,0.8000,14,0.6,bell_chime_F4.wav
+68,1.0,0.00000,4,0.7,bell_chime_G3.wav
+68,3.0,-0.2000,2,0.7,bell_chime_F3.wav
+
+69,1.0,0.0000,24,0.9,bell_chime_D#5.wav
+69,1.0,0.0000,16,0.9,bell_chime_G4.wav
+69,1.0,-0.500, 5,0.7,bell_chime_G#3.wav
+69,3.0,0.2000, 9,0.7,bell_chime_C4.wav
+
+70,1.0,0.6000,23,0.6,bell_chime_D5.wav
+70,1.5,0.4000,24,0.6,bell_chime_D#5.wav
+70,2.0,0.2000,21,0.6,bell_chime_C5.wav
+70,2.5,0.0000,23,0.6,bell_chime_D5.wav
+70,3.0,-0.200,19,0.6,bell_chime_A#4.wav
+70,4.0,-0.400,21,0.6,bell_chime_C5.wav
+70,4.5,-0.600,23,0.6,bell_chime_D5.wav
+70,1.0,-0.200, 7,0.7,bell_chime_A#3.wav
+70,3.0,0.5000, 2,0.7,bell_chime_F3.wav
+
+71,1.0,-0.800,16,0.9,bell_chime_G4.wav
+71,1.0,0.8000,7 ,0.6,bell_chime_A#3.wav
+71,1.0,-0.700,4 ,0.6,bell_chime_G3.wav
+71,1.5,-0.500,5 ,0.6,bell_chime_G#3.wav
+71,2.0,-0.300,2 ,0.6,bell_chime_F3.wav
+71,2.5,-0.100,4 ,0.6,bell_chime_G3.wav
+71,3.0,0.1000,0 ,0.6,bell_chime_D#3.wav
+71,3.5,0.3000,2 ,0.6,bell_chime_F3.wav
+71,4.0,0.5000,0 ,0.6,bell_chime_D#3.wav
+71,4.5,0.7000,2 ,0.6,bell_chime_D#3.wav
+
+72,1.0,-0.8000,2 ,0.6,bell_chime_F3.wav
+72,1.5,0.60000,5 ,0.6,bell_chime_G#3.wav
+72,2.0,-0.4000,9 ,0.6,bell_chime_C4.wav
+72,2.5,0.20000,12,0.6,bell_chime_D#4.wav
+72,3.0,0.00000,11,0.6,bell_chime_D4.wav
+72,4.0,0.00000,8 ,0.6,bell_chime_B3.wav
+72,4.5,0.20000,5 ,0.6,bell_chime_G#3.wav
+
+73,1.0,-0.6000,24,0.6,bell_chime_D#5.wav
+73,1.0,-0.6000,16,0.5,bell_chime_G4.wav
+73,2.0,-0.6000,23,0.6,bell_chime_D5.wav
+73,2.0,-0.6000,16,0.5,bell_chime_G4.wav
+73,2.5,-0.6000,21,0.6,bell_chime_C5.wav
+73,2.5,-0.6000,12,0.5,bell_chime_D#4.wav
+73,3.0,-0.6000,19,0.6,bell_chime_A#4.wav
+73,3.0,-0.6000,12,0.5,bell_chime_D#4.wav
+73,4.0,-0.6000,17,0.6,bell_chime_G#4.wav
+73,4.0,-0.6000,12,0.5,bell_chime_D#4.wav
+73,1.0,0.00000,7 ,0.5,bell_chime_A#3.wav
+
+74,1.0,-0.6000,16,0.6,bell_chime_G4.wav
+74,1.0,-0.6000,12,0.6,bell_chime_D#4.wav
+74,1.0,0.60000,12,0.6,bell_chime_D#4.wav
+74,1.0,0.20000,4,0.5,bell_chime_G3.wav
+74,2.0,0.5000,11,0.6,bell_chime_D4.wav
+74,2.0,0.30000,4,0.5,bell_chime_G3.wav
+74,2.5,0.4000,9,0.6,bell_chime_C4.wav
+74,2.5,0.40000,0,0.5,bell_chime_D#3.wav
+74,3.0,0.3000,7,0.6,bell_chime_A#3.wav
+74,3.0,0.5000,0,0.5,bell_chime_D#3.wav
+74,4.0,0.2000,5,0.6,bell_chime_G#3.wav
+74,4.0,0.6000,0,0.5,bell_chime_D#3.wav
+
+75,1.0,-0.700,21,0.6,bell_chime_C5.wav
+75,1.0,-0.700,14,0.5,bell_chime_F4.wav
+75,2.0,-0.700,19,0.6,bell_chime_A#4.wav
+75,2.0,-0.700,14,0.5,bell_chime_F4.wav
+75,2.5,-0.700,17,0.6,bell_chime_G#4.wav
+75,2.5,-0.700,11,0.5,bell_chime_D4.wav
+75,3.0,-0.700,16,0.6,bell_chime_G4.wav
+75,3.0,-0.700,11,0.5,bell_chime_D4.wav
+75,4.0,-0.700,14,0.6,bell_chime_F4.wav
+75,4.0,-0.700,7 ,0.5,bell_chime_A#3.wav
+75,1.0,0.4000,4,0.6,bell_chime_G3.wav
+75,3.0,0.4000,5,0.6,bell_chime_G#3.wav
+
+76,1.0,-0.600,12,0.6,bell_chime_D#4.wav
+76,1.0,-0.600,7 ,0.6,bell_chime_A#3.wav
+76,3.0,-0.300,14,0.6,bell_chime_F4.wav
+76,3.0,-0.300,7 ,0.6,bell_chime_A#3.wav
+76,1.0,0.6000,4  ,0.6,bell_chime_G3.wav
+76,2.0,0.4500,5  ,0.6,bell_chime_G#3.wav
+76,2.5,0.3750,7  ,0.6,bell_chime_A#3.wav
+76,3.0,0.3000,7  ,0.6,bell_chime_A#3.wav
+76,3.0,0.3000,11 ,0.6,bell_chime_D4.wav
+
+77,1.0,0.0000,16,0.6,bell_chime_G4.wav
+77,1.0,0.0000,10,0.6,bell_chime_C4.wav
+77,1.0,-0.800,12,0.6,bell_chime_D#4.wav
+77,1.5,0.8000,14,0.6,bell_chime_F4.wav
+77,2.0,-0.600,11,0.6,bell_chime_D4.wav
+77,2.5,0.6000,12,0.6,bell_chime_D#4.wav
+77,3.0,-0.400,9 ,0.6,bell_chime_C4.wav
+77,3.5,0.4000,11,0.6,bell_chime_D4.wav
+77,4.0,-0.200,7,0.6,bell_chime_A#3.wav
+77,4.5,0.2000,9,0.6,bell_chime_C4.wav
+
+78,1.0,0.0000,17,0.7,bell_chime_A#4.wav
+78,1.0,0.0000,14,0.7,bell_chime_F4.wav
+78,1.0,-0.800,5,0.6,bell_chime_G#3.wav
+78,1.5,0.7000,7,0.6,bell_chime_A#3.wav
+78,2.0,-0.600,4,0.6,bell_chime_G3.wav
+78,2.5,0.5000,5,0.6,bell_chime_G#3.wav
+78,3.0,-0.400,2 ,0.6,bell_chime_F3.wav
+78,3.5,0.3000,4,0.6,bell_chime_G3.wav
+78,4.0,-0.200,5,0.6,bell_chime_G#3.wav
+78,4.5,0.1000,9,0.6,bell_chime_C4.wav
+
+79,1.0,0.0000,18,0.7,bell_chime_A4.wav
+79,1.0,0.0000,12,0.7,bell_chime_D4.wav
+79,1.0,-0.500,8 ,0.6,bell_chime_B3.wav
+79,2.0,-0.500,9 ,0.6,bell_chime_C4.wav
+79,3.0,0.500,11 ,0.6,bell_chime_D4.wav
+79,4.0,0.500,14 ,0.6,bell_chime_F4.wav
+
+80,1.0,0.0000,20,0.7,bell_chime_B4.wav
+80,1.0,0.0000,17,0.7,bell_chime_G#4.wav
+80,1.0,-0.500,13,0.6,bell_chime_E4.wav
+80,1.666666667,0.0000,8,0.6,bell_chime_B3.wav
+80,2.333333333,0.5000,5 ,0.6,bell_chime_G#3.wav
+80,3.0,-0.300,11,0.6,bell_chime_D4.wav
+80,3.666666667,0.0000,9,0.6,bell_chime_C4.wav
+80,4.333333333,0.3000,8 ,0.6,bell_chime_B3.wav
+
+% A3
+81,1.0,-0.400,25,0.8,bell_chime_E5.wav
+81,1.666666667,-0.400,23,0.8,bell_chime_D5.wav
+81,2.333333333,-0.400,21,0.8,bell_chime_C5.wav
+81,3.0,-0.400,20,0.8,bell_chime_B4.wav
+81,4.0,-0.200,18,0.7,bell_chime_A4.wav
+
+82,1.0,0.0000,16,0.7,bell_chime_G4.wav
+
+83,1.0,0.400,21,0.8,bell_chime_C5.wav
+83,1.666666667,0.400,20,0.8,bell_chime_B4.wav
+83,2.333333333,0.400,18,0.8,bell_chime_A4.wav
+83,3.0,0.400,16,0.7,bell_chime_G4.wav
+83,4.0,0.200,14,0.7,bell_chime_F4.wav
+
+84,1.0,0.0000,13,0.7,bell_chime_E4.wav
+84,1.5,-0.200,14,0.7,bell_chime_F4.wav
+84,2.0,0.4000,11,0.7,bell_chime_D4.wav
+84,2.5,-0.600,13,0.7,bell_chime_E4.wav
+84,3.0,0.7000,9 ,0.7,bell_chime_C4.wav
+84,3.666666667,-0.8000,11,0.7,bell_chime_D4.wav
+84,4.333333333,0.90000,8 ,0.7,bell_chime_B3.wav
+84,4.666666667,-0.9000,9 ,0.7,bell_chime_C4.wav
+
+85,1.0,-0.600,6,0.7,bell_chime_A3.wav
+85,2.5,-0.200,8,0.7,bell_chime_B3.wav
+85,3.0,0.2000,9,0.7,bell_chime_C4.wav
+85,4.5,0.6000,11,0.7,bell_chime_D4.wav
+
+86,1.0,-0.450,8,0.7,bell_chime_B3.wav
+86,2.5,-0.150,9,0.7,bell_chime_C4.wav
+86,3.0,0.1500,11,0.7,bell_chime_D4.wav
+86,4.5,0.4500,20,0.7,bell_chime_B4.wav
+
+87,1.0,0.0000,16,0.7,bell_chime_G4.wav
+87,2.0,-0.800,13,0.7,bell_chime_E4.wav
+87,2.5,0.0000,9 ,0.7,bell_chime_C4.wav
+87,3.0,-0.400,11,0.7,bell_chime_D4.wav
+87,3.5,0.4000,8 ,0.7,bell_chime_B4.wav
+87,4.0,0.0000,9 ,0.7,bell_chime_C4.wav
+87,4.5,0.8000,6 ,0.7,bell_chime_A3.wav
+
+88,1.0,-0.600,8 ,0.7,bell_chime_B3.wav
+88,2.0,-0.400,6 ,0.7,bell_chime_A3.wav
+88,2.5,-0.200,8 ,0.7,bell_chime_B3.wav
+88,3.0,0.0000,9 ,0.7,bell_chime_C4.wav
+88,4.0,0.2000,4 ,0.7,bell_chime_G3.wav
+
+89,1.0,0.700,18,0.7,bell_chime_A4.wav
+89,2.0,0.500,16,0.7,bell_chime_G4.wav
+89,2.5,0.300,14,0.7,bell_chime_F4.wav
+89,3.0,0.100,13,0.7,bell_chime_E4.wav
+89,4.0,0.000,11,0.7,bell_chime_D4.wav
+
+90,1.0000000,-0.300,9 ,0.7,bell_chime_C4.wav
+90,2.0000000,-0.100,11,0.7,bell_chime_D4.wav
+90,3.0000000,-0.200,8 ,0.8,bell_chime_B3.wav
+90,3.6666667,0.0000,9 ,0.8,bell_chime_C4.wav
+90,4.3333333,0.2000,11,0.8,bell_chime_D4.wav
+90,1.0,0.400,9 ,0.7,bell_chime_C4.wav
+90,2.0,0.400,8 ,0.7,bell_chime_B3.wav
+90,2.5,0.400,9 ,0.7,bell_chime_C4.wav
+90,3.0,0.400,4 ,0.7,bell_chime_G3.wav
+90,4.0,0.400,1 ,0.7,bell_chime_E3.wav
+
+91,1.0000000,0.7000,13,0.8,bell_chime_E4.wav
+91,2.0000000,0.5000,11,0.8,bell_chime_D4.wav
+91,2.5000000,0.4000,9 ,0.8,bell_chime_C4.wav
+91,3.0000000,0.3000,8 ,0.9,bell_chime_B3.wav
+91,3.6666667,0.0000,9 ,0.9,bell_chime_C4.wav
+91,4.3333333,-0.3500,11,0.9,bell_chime_D4.wav
+
+92,1.0000000,0.5000,16,0.9,bell_chime_G4.wav
+92,1.0000000,-0.300,13,0.7,bell_chime_E4.wav
+92,2.0000000,-0.100,11,0.7,bell_chime_D4.wav
+92,2.5000000,0.1000,9 ,0.7,bell_chime_C4.wav
+92,3.0000000,0.3000,8 ,0.8,bell_chime_B3.wav
+92,3.6666667,0.4000,9 ,0.8,bell_chime_C4.wav
+92,4.3333333,0.5000,11,0.8,bell_chime_D4.wav
+
+93,1.0,-0.75000,18,0.9,bell_chime_A4.wav
+93,2.0,-0.25000,20,0.9,bell_chime_B4.wav
+93,3.0,0.250000,21,0.9,bell_chime_C4.wav
+93,4.0,0.750000,23,0.9,bell_chime_D4.wav
+93,1.0,0.400000,2 ,0.8,bell_chime_F3.wav
+
+94,1.0,0.500000,18,0.95,bell_chime_E5.wav
+94,3.0,-0.50000,21,0.95,bell_chime_D5.wav
+94,1.0,-0.40000,4 ,0.80,bell_chime_G3.wav
+
+95,1.0,0.000000,22,1.0,bell_chime_C#5.wav
+95,1.0,0.000000,6 ,1.0,bell_chime_A3.wav

@@ -6,7 +6,7 @@
 
 #include <glm/glm.hpp>
 
-#include "ChimeBombData.cpp"
+#include "ChimeBombData.hpp"
 
 #include <vector>
 #include <deque>
@@ -37,7 +37,7 @@ struct PlayMode : Mode {
 	Scene scene;
 
 	// game world
-	static inline float X_MIN, X_MAX, Y_MIN, Y_MAX, CENTER_Z, CUE_DEPTH;
+	// static inline float X_MIN, X_MAX, Y_MIN, Y_MAX, CENTER_Z, CUE_DEPTH;
 
 	// Level info
 	static inline float bpm = 160;
@@ -57,7 +57,7 @@ struct PlayMode : Mode {
 
 	std::list< ChimeBombData > chimeBombDataList; // loaded by my asset pipeline
 	std::list< ChimeBomb > chimeBombs; // this is basically "the level" (all the chimeBombs)
-	std::list< Explosion > explosions; // this is a more dynamic list
+	std::list< Explosion* > explosions; // this is a more dynamic list
 
 	std::list<Scene::Drawable>::iterator new_drawable(Mesh const &mesh, Scene::Transform *tf);
 

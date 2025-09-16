@@ -34,6 +34,7 @@ if (maek.OS === "windows") {
 		`/I${NEST_LIBS}/opusfile/include`,
 		`/I${NEST_LIBS}/libopus/include`,
 		`/I${NEST_LIBS}/libogg/include`,
+		// `/fsanitize=address`,
 		//#disable a few warnings:
 		`/wd4146`, //-1U is still unsigned
 		`/wd4297`, //unforunately SDLmain is nothrow
@@ -136,7 +137,7 @@ if (maek.OS === 'windows') {
 // objFileBase (optional): base name object file to produce (if not supplied, set to options.objDir + '/' + cppFile without the extension)
 //returns objFile: objFileBase + a platform-dependant suffix ('.o' or '.obj')
 const game_names = [
-	maek.CPP('ChimeBombData.cpp'),
+	maek.CPP('ChimeBombData.hpp'),
 	maek.CPP('PlayMode.cpp'),
 	maek.CPP('main.cpp'),
 	maek.CPP('LitColorTextureProgram.cpp'),
