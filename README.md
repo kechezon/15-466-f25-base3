@@ -4,13 +4,16 @@ Author: Kenechukwu Echezona
 
 Design: A flying sidescrolling where the player dodges explosions time to bell chimes.
 
+Known bugs:
+- Asset pipeline is kinda broken (it seems I can convert my charts to a runtime format, but reading them causes problems with the strings). I deliberately added an extra t to the chart name so the game would run.
+
 Screen Shot:
 
-![Screen Shot](screenshot.png)
+![Screen Shot](egbdf_screenshot.png)
 
 How To Play:
 - WASD: Move
-- Listen for the bell chimes: they tell you the location of a Chime Bomb that will explode in four beats.
+- Listen for the bell chimes: they tell you the location of a Chime Bomb that will explode in four beats (one measure).
 - Your goal is to avoid the explosions and survive to the end of the song.
 
 Strategies and Advanced Play:

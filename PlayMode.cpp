@@ -452,7 +452,7 @@ PlayMode::PlayMode() : scene(*game_scene) {
 		// load data
 		// How to from this cpp thread: https://cplusplus.com/forum/general/122330/
 		std::ifstream chartFile;
-		chartFile.open(data_path("starter_soaring.chrt"), std::ios::binary);
+		chartFile.open(data_path("starter_soaring.chrtt"), std::ios::binary);
 		ChimeBombData cbd;
 
 		while (chartFile.read(reinterpret_cast<char*>(&cbd), sizeof(ChimeBombData)))
