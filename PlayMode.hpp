@@ -2,11 +2,19 @@
 
 #include "Scene.hpp"
 #include "Sound.hpp"
+#include "Mesh.hpp"
 
 #include <glm/glm.hpp>
 
+#include "ChimeBombData.cpp"
+
 #include <vector>
 #include <deque>
+#include <list>
+#include <sstream>
+#include <iostream>
+#include <fstream>
+#include <algorithm>
 
 struct PlayMode : Mode {
 	PlayMode();
@@ -29,13 +37,13 @@ struct PlayMode : Mode {
 	Scene scene;
 
 	// game world
-	float X_MIN, X_MAX, Y_MIN, Y_MAX, CENTER_Z, EXPLOSION_DEPTH;
+	static inline float X_MIN, X_MAX, Y_MIN, Y_MAX, CENTER_Z, CUE_DEPTH;
 
 	// Level info
-	float bpm;
-	std::tuple< size_t, size_t > timeSignature;
-	float pitchRange = 20;
-	std::tuple< float, float > EXPLOSION_RADIUS_RANGE;
+	static inline float bpm = 160;
+	static inline std::tuple< size_t, size_t > timeSignature;
+	static inline float pitchRange = 26; // Eb3-F5
+	static inline std::tuple< float, float > EXPLOSION_RADIUS_RANGE;
 
 	// General needs
 	struct GameObject;
@@ -44,12 +52,14 @@ struct PlayMode : Mode {
 	// Game specific needs
 	struct Player;
 	struct ChimeBomb; // the audio and visual cue
+	// struct ChimeBombData; // for asset pipeline needs
 	struct Explosion; // the actual explosion
 
+	std::list< ChimeBombData > chimeBombDataList; // loaded by my asset pipeline
 	std::list< ChimeBomb > chimeBombs; // this is basically "the level" (all the chimeBombs)
 	std::list< Explosion > explosions; // this is a more dynamic list
 
-	std::list<Scene::Drawable>::iterator PlayMode::new_drawable(Mesh const &mesh, Scene::Transform *tf);
+	std::list<Scene::Drawable>::iterator new_drawable(Mesh const &mesh, Scene::Transform *tf);
 
 	//hexapod leg to wobble:
 	Scene::Transform *hip = nullptr;
@@ -62,11 +72,11 @@ struct PlayMode : Mode {
 
 	glm::vec3 get_leg_tip_position();
 
-	//music coming from the tip of the leg (as a demonstration):
-	std::shared_ptr< Sound::PlayingSample > leg_tip_loop;
+	// //music coming from the tip of the leg (as a demonstration):
+	// std::shared_ptr< Sound::PlayingSample > leg_tip_loop;
 
-	//car honk sound:
-	std::shared_ptr< Sound::PlayingSample > honk_oneshot;
+	// //car honk sound:
+	// std::shared_ptr< Sound::PlayingSample > honk_oneshot;
 
 	// music playing in the background
 	std::shared_ptr< Sound::PlayingSample > sound_track;
