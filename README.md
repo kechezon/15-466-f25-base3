@@ -2,7 +2,7 @@
 
 Author: Kenechukwu Echezona
 
-Design: A flying sidescrolling where the player dodges explosions time to bell chimes.
+Design: A flying sidescrolling where the player dodges explosions timed to bell chimes.
 
 Known bugs:
 - Asset pipeline is kinda broken (it seems I can convert my charts to a runtime format, but reading them causes problems with the strings). I deliberately added an extra t to the chart name so the game would run.
