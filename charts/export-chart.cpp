@@ -33,23 +33,38 @@ int main() {
                 std::vector<std::string> info = {};
                 std::string piece;
 
-                while (getline(linestream, piece, ','))
-                    info.emplace_back(piece);
-
                 ChimeBombData data;
 
+                while (getline(linestream, piece, ',')) {
+                    info.emplace_back(piece);
+                }
+
+                // assert(info.size() == 6);
+
                 size_t measure = 0;
+                float beat = 0;
+                float pan = 0;
+                float pitch = 0;
+                float volume = 0;
+                std::string sample_name = "";
 
+                // chart order: measure->beat->pan->pitch->volume->name
                 std::stringstream measureStream(info[0]);
-                measureStream >> measure;
-                data.measure = measure;
+                measureStream >> data.measure;
 
-                data.beat = std::stof(info[1]);
                 data.pan = std::stof(info[2]);
-                data.pitch = std::stof(info[3]);
                 data.volume = std::stof(info[4]);
-                data.sample_name = info[5];
-                std::cout << data.sample_name << std::endl; // this display properly
+                data.beat = std::stof(info[1]);
+                data.pitch = std::stof(info[3]);
+                
+                for (size_t i = 0; i < info[5].length(); i++) {
+                    data.sample_name[i] = info[5].at(i);
+                }
+                for (size_t i = info[5].length(); i < 100; i++) {
+                    data.sample_name[i] = '\0';
+                }
+                std::cout << data.measure << "." << data.beat << ": " << data.sample_name << std::endl;
+                // data.sample_name = info[5];
 
                 chimeBombs.emplace_back(data);
             }

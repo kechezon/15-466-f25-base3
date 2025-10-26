@@ -20,9 +20,11 @@ float Y_MIN = -10.f;
 float Y_MAX = 10.f;
 float CENTER_Z = 10.f;
 float CUE_DEPTH = 0.5f;
-auto timeSignature = std::make_tuple(4, 4);
-auto EXPLOSION_RADIUS_RANGE = std::make_tuple(1.f, 6.f);
+float bpm = 160;
+float VISUAL_WARNING = 1.0f;
+// auto EXPLOSION_RADIUS_RANGE = std::make_tuple(1.f, 20.f);
 bool victory = false;
+float crash_background_fade = 0.0f;
 
 Load< MeshBuffer > game_meshes(LoadTagDefault, []() -> MeshBuffer const * {
 	MeshBuffer const *ret = new MeshBuffer(data_path("egbdf.pnct"));
@@ -55,6 +57,10 @@ struct PlayMode::GameObject {
 	glm::vec3 transform_forward() {
 		return transform->rotation * glm::vec3(0.0f, 1.0f, 0.0f);
 	}
+
+	glm::vec3 transform_right() {
+		return transform->rotation * glm::vec3(1.0f, 0.0f, 0.0f);
+	}
 };
 
 struct PlayMode::ColliderSphere {
@@ -68,8 +74,8 @@ struct PlayMode::ColliderSphere {
 	}
 
 	PlayMode::ColliderSphere(PlayMode::GameObject *gameObject_, glm::vec2 offset_, std::string tag_, float radius_)
-		: gameObject(gameObject_), collider_tag(tag_), radius(radius_) {
-			offset = offset_;
+		: gameObject(gameObject_), offset(offset_.x, offset_.y), collider_tag(tag_), radius(radius_) {
+
 		};
 
 	bool collider_test(ColliderSphere *other) {
@@ -112,7 +118,7 @@ struct PlayMode::Explosion {
 	 * Game Properties
 	 ******************/
 	float SIZE = 0;
-	float DURATION = 4; // in units of beats
+	float DURATION = 2; // in units of beats
 	float timer = 0; // in units of beats
 	float power = 0;
 
@@ -124,13 +130,13 @@ struct PlayMode::Explosion {
 	// returns true on dissipating (finishing)
 	bool update(float t) {
 		timer += (t / 60) * bpm; // time in seconds -> time in minutes -> time in beats
-		return t >= DURATION;
+		return timer >= DURATION;
 	}
 };
 
 
 struct PlayMode::Player {
-	PlayMode::GameObject gameObject;
+	PlayMode::GameObject *gameObject = nullptr;
 	PlayMode::ColliderSphere collider;
 
 	/*********************
@@ -154,6 +160,7 @@ struct PlayMode::Player {
 	float FLIGHT_TILT_SPEED = 120; // degrees per second along x axis
 	float MAX_FLIGHT_TILT = 30; // degrees along x axis
 	float currentFlightTilt = 0;
+	float crash_acc = 0.0f;
 
 	/*********
 	 * Sounds
@@ -165,11 +172,13 @@ struct PlayMode::Player {
 		
 	};
 
-	PlayMode::Player(Scene::Transform *transform, std::list<Scene::Drawable>::iterator drawable)
-		: gameObject(transform, drawable) {
-		collider = ColliderSphere(&gameObject, glm::vec2(0, 0), "player", 1);
+	PlayMode::Player(Scene::Transform *transform, std::list<Scene::Drawable>::iterator drawable) {
+		gameObject = new PlayMode::GameObject(transform, drawable);
+		collider = PlayMode::ColliderSphere(gameObject, glm::vec2(0, 0), "player", 0.5f);
 		ouch = new Sound::Sample(data_path("player_ouch.wav"));
 		crash = new Sound::Sample(data_path("player_crashing.wav"));
+		crash_acc = 0.0f;
+		assert(collider.gameObject == gameObject);
 	}
 
 	void move(float x, float y) {
@@ -184,8 +193,8 @@ struct PlayMode::Player {
 	void update(float t, PlayMode *pm) {
 		if (health > 0) {
 			// movement
-			gameObject.transform->position.x += flightVector.x * t;
-			gameObject.transform->position.y += flightVector.y * t;
+			gameObject->transform->position.x += flightVector.x * t;
+			gameObject->transform->position.y += flightVector.y * t;
 			if (flightVector.y > 0) currentFlightTilt -= FLIGHT_TILT_SPEED * t;
 			else if (flightVector.y < 0) currentFlightTilt += FLIGHT_TILT_SPEED * t;
 			else { // bring back to neutral
@@ -193,29 +202,34 @@ struct PlayMode::Player {
 				else if (currentFlightTilt < 0) currentFlightTilt = std::clamp(currentFlightTilt + FLIGHT_TILT_SPEED * t, -MAX_FLIGHT_TILT, 0.f);
 			}
 			currentFlightTilt = std::clamp(currentFlightTilt, -MAX_FLIGHT_TILT, MAX_FLIGHT_TILT);
-			gameObject.transform->rotation = glm::quat(1.0f, currentFlightTilt * std::numbers::pi_v<float> / 180.f, 0, 0);
+			gameObject->transform->rotation = glm::quat(1.0f, currentFlightTilt * std::numbers::pi_v<float> / 180.f, 0, 0);
 
 			// bounds
-			if (gameObject.transform->position.x < X_MIN) gameObject.transform->position.x = X_MIN;
-			if (gameObject.transform->position.x > X_MAX) gameObject.transform->position.x = X_MAX;
-			if (gameObject.transform->position.y < Y_MIN) gameObject.transform->position.y = Y_MIN;
-			if (gameObject.transform->position.y > Y_MAX) gameObject.transform->position.y = Y_MAX;
+			if (gameObject->transform->position.x < X_MIN) gameObject->transform->position.x = X_MIN;
+			if (gameObject->transform->position.x > X_MAX) gameObject->transform->position.x = X_MAX;
+			if (gameObject->transform->position.y < Y_MIN) gameObject->transform->position.y = Y_MIN;
+			if (gameObject->transform->position.y > Y_MAX) gameObject->transform->position.y = Y_MAX;
 
 			// collision with Explosions
 			for (auto explosion = pm->explosions.begin(); explosion != pm->explosions.end(); explosion++) {
 				if (std::find(hitMe.begin(), hitMe.end(), *explosion) == hitMe.end()) {
+					assert(collider.gameObject == gameObject);
 					ColliderSphere otherCollider = (*explosion)->collider;
 					if (collider.collider_test(&otherCollider)) {
 						health -= (*explosion)->power;
 						hitMe.emplace_back((*explosion));
-						Sound::play(*ouch);
+						Sound::play(*ouch, 0.5f);
+
+						if (health <= 0) otherCollider.gameObject->transform->scale = glm::vec3(0.0f, 0.0f, 0.0f);
 					}
 					else {
-						glm::vec2 vectorFromExplosion = glm::vec2((*explosion)->gameObject.transform->position.x - gameObject.transform->position.x,
-																(*explosion)->gameObject.transform->position.y - gameObject.transform->position.y);
+						glm::vec2 vectorFromExplosion = glm::vec2((*explosion)->gameObject.transform->position.x - gameObject->transform->position.x,
+																(*explosion)->gameObject.transform->position.y - gameObject->transform->position.y);
 						float distFromExplosion = std::sqrtf((vectorFromExplosion.x * vectorFromExplosion.x) + (vectorFromExplosion.y * vectorFromExplosion.y));
-						float safety = distFromExplosion - (*explosion)->gameObject.transform->scale.x;
-						if (safety > MAX_SAFETY_FOR_FACE) {
+						assert(distFromExplosion >= 0);
+						float safety = distFromExplosion - ((*explosion)->gameObject.transform->scale.x / 2);
+						if (safety < MAX_SAFETY_FOR_FACE) {
+							assert((MAX_SAFETY_FOR_FACE - safety)>= 0);
 							faceScore += (MAX_SAFETY_FOR_FACE - safety) * FACE_PTS_RATE * t;
 						}
 					}
@@ -223,23 +237,35 @@ struct PlayMode::Player {
 			}
 
 			if (health < 0) {
-				gameObject.transform->rotation = glm::quat(1.0f, 0.0f, gameObject.transform->rotation.y, 30);
-
+				gameObject->transform->rotation = glm::quat(1.0f, 0.0f, gameObject->transform->rotation.y, 30);
 				// at the suggestion of Jia:
-				Sound::stop_all_samples();
+				// Sound::stop_all_samples();
 				Sound::loop(*crash);
 			}
 		}
 		else {
 			// CRASH!!!
-			gameObject.transform->rotation = glm::quat(1.0f, gameObject.transform->rotation.x + (FLIGHT_TILT_SPEED * t) * std::numbers::pi_v<float> / 180.f,
-													   0.0f, gameObject.transform->rotation.z);
+			// gameObject->transform->rotation = glm::quat(1.0f, gameObject->transform->rotation.x + (FLIGHT_TILT_SPEED * t) * std::numbers::pi_v<float> / 180.f,
+			// 										   0.0f, gameObject->transform->rotation.z);
+			crash_acc += t;
+			float tumble = (FLIGHT_TILT_SPEED * crash_acc * 2) * std::numbers::pi_v<float> / 180.f;
+			// while (tumble > 2 * std::numbers::pi_v<float>) tumble -= 2 * std::numbers::pi_v<float>;
 
-			gameObject.transform->position.x += FLIGHT_SPEED * t * 0.25f * sqrtf(2.f);
-			gameObject.transform->position.y -= FLIGHT_SPEED * t * sqrtf(2.f);
+			// gameObject->transform->rotation = glm::rotate(gameObject->transform->rotation, (FLIGHT_TILT_SPEED * t) * std::numbers::pi_v<float> / 180.f,
+			// 											  {1.0f, 0.0f, 0.0f});
 
-			if (gameObject.transform->position.y < Y_MIN - (Y_MAX - Y_MIN)) {
-				Sound::stop_all_samples();
+			// gameObject->transform->rotation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+			float dip = std::clamp(tumble / 2.0f, 0.0f, sqrtf(3.0f) * std::numbers::pi_v<float> / 4.f);
+			gameObject->transform->rotation = glm::angleAxis(dip * -1, glm::vec3(0.0f, 0.0f, 1.0f));
+			// gameObject->transform->rotation = glm::angleAxis(tumble, gameObject->transform_right());
+			gameObject->transform->rotation = glm::rotate(gameObject->transform->rotation, tumble, glm::vec3(1.0f, 0.0f, 0.0f));
+
+			gameObject->transform->position.x += FLIGHT_SPEED * t * 0.4f;
+			gameObject->transform->position.y -= FLIGHT_SPEED * t * std::lerp(0.0f, 0.8f, dip / (sqrtf(3.0f) * std::numbers::pi_v<float> / 4.f));
+			// gameObject->transform->position += FLIGHT_SPEED * t * 0.5f * sqrtf(2.f) * gameObject->transform_right();
+
+			if (gameObject->transform->position.y < Y_MIN - (Y_MAX - Y_MIN)) {
+				// Sound::stop_all_samples();
 				Mode::set_current(std::make_shared< PlayMode >());
 			}
 		}
@@ -284,74 +310,93 @@ struct PlayMode::ChimeBomb {
 						std::string sample_name, float pan_, size_t pitch_, float volume_,
 						size_t measure_, float beat_)
 		: gameObject_outer(transform_outer, drawable_outer), gameObject_inner(transform_inner, drawable_inner),
-		  pan(pan_), pitch(pitch_), volume(volume_), measure(measure_), beat(beat_),
-		  START_BEAT((measure - 1) * std::get<0>(timeSignature) + (beat - 1)) {
+		  pan(pan_), pitch(pitch_), volume(volume_), measure(measure_), beat(beat_) {
 		
 		// gameObject_inner
 
+		assert(gameObject_outer.transform);
+
 		// convert pan to volume->size and power, position.x -> pan, pitch to position.y -> pitch
-		// float s = std::lerp(std::get<0>(EXPLOSION_SIZE_RANGE), std::get<1>(EXPLOSION_SIZE_RANGE), volume);
+		// float s = std::lerp(std::get<0>(EXPLOSION_RADIUS_RANGE), std::get<1>(EXPLOSION_RADIUS_RANGE), volume);
 
 		transform_outer->position.x = std::lerp(X_MIN, X_MAX, (pan + 1.f) / 2.f);
-		transform_outer->position.y = std::lerp(Y_MIN, Y_MAX, pitch_ / pitchRange);
+		transform_outer->position.y = std::lerp(Y_MIN + 1, Y_MAX - 1, (pitch_ + 1) / pitchRange);
 		transform_outer->position.z = CENTER_Z - CUE_DEPTH;
-		transform_outer->scale = glm::vec3(0, 0, 0); // use this to then determine power
+		transform_outer->scale = glm::vec3(0, 0, 1); // use this to then determine power
 
 		transform_inner->position = glm::vec3(transform_outer->position) + glm::vec3(0, 0, 0.001f);
-		transform_inner->scale = glm::vec3(0, 0, 0);
+		transform_inner->scale = glm::vec3(0, 0, 1);
+
+		START_BEAT = (measure - 1) * std::get<0>(timeSignature) + (beat - 1);
 
 		chime = new Sound::Sample(data_path(sample_name));
 		boom = new Sound::Sample(data_path("chime_boom.wav"));
+		assert(gameObject_outer.transform);
 	}
 
-	PlayMode::ChimeBomb(Scene::Transform *transform_outer, std::list<Scene::Drawable>::iterator drawable_outer,
-						Scene::Transform *transform_inner, std::list<Scene::Drawable>::iterator drawable_inner,
-						ChimeBombData data) {
-		PlayMode::ChimeBomb::ChimeBomb(transform_outer, drawable_outer, transform_inner, drawable_inner,
-							data.sample_name, data.pan, data.pitch, data.volume, data.measure, data.beat);
-	}
+	// PlayMode::ChimeBomb(Scene::Transform *transform_outer, std::list<Scene::Drawable>::iterator drawable_outer,
+	// 					Scene::Transform *transform_inner, std::list<Scene::Drawable>::iterator drawable_inner,
+	// 					ChimeBombData data) {
+	// 	std::cout << gameObject_outer.transform << std::endl;
+		
+	// 	PlayMode::ChimeBomb::ChimeBomb(transform_outer, drawable_outer, transform_inner, drawable_inner,
+	// 						data.sample_name, data.pan, data.pitch, data.volume, data.measure, data.beat);
+	// 	std::cout << gameObject_outer.transform << std::endl;
+	// 	assert(gameObject_outer.transform);
+	// }
 
 	// Explodes
 	void explode(float t, PlayMode *pm) {
 		Scene::Transform *tf = new Scene::Transform();
+		assert(tf);
 		tf->position = glm::vec3(gameObject_outer.transform->position.x, gameObject_outer.transform->position.y, CENTER_Z);
-		tf->scale = glm::vec3(gameObject_outer.transform->scale.x, gameObject_outer.transform->scale.y, 0);
+		// TODO: get explosion to look at camera
+		glm::vec3 camera_direction = glm::normalize(tf->position - pm->camera->transform->position);
+		tf->rotation = glm::quatLookAt(camera_direction, glm::vec3(0,1,0));
+		tf->scale = glm::vec3(gameObject_outer.transform->scale.x, gameObject_outer.transform->scale.y, 1);
 		tf->name = gameObject_outer.transform->name + "-explode";
 
-		// assert(gameObject_outer); TODO figure out how to text
-		// assert(gameObject_outer.drawable != nullptr);
 		pm->scene.drawables.erase(gameObject_outer.drawable);
-
-		// assert(gameObject_inner); TODO figure out how to text
-		// assert(gameObject_inner.drawable);
 		pm->scene.drawables.erase(gameObject_inner.drawable);
 
 		float explosionPower = std::lerp(std::get<0>(EXPLOSION_RADIUS_RANGE), std::get<1>(EXPLOSION_RADIUS_RANGE), volume);
-		Explosion *explosion = new Explosion(tf, pm->new_drawable(game_meshes->lookup("Ship"), tf), explosionPower, detonateTimer - DETONATE_DELAY);
+		explosionPower *= 10.0f;
+		Explosion *explosion = new Explosion(tf, pm->new_drawable(game_meshes->lookup("Explosion"), tf), explosionPower, detonateTimer - DETONATE_DELAY);
 		pm->explosions.emplace_back(explosion);
+		assert(pm->explosions.size() > 0);
+		Sound::play(*boom, volume / pm->explosions.size() + 0.2f);
 	}
 
 	// return true on actually detonating
 	bool update(float t, PlayMode *pm) {
+		// std::cout << levelTimer << std::endl;
+		assert(gameObject_outer.transform);
 		if (!detonating) { // before the beat arrives
-			std::cout << levelTimer << std::endl;
 			levelTimer += (t / 60) * bpm;
+
 			if (levelTimer >= START_BEAT) {
 				detonateTimer = levelTimer - START_BEAT;
 				detonating = true;
-				Sound::play(*chime, volume, pan);
+				assert(chime);
+				auto playingNow = Sound::play(*chime, volume * 0.5f, pan * 2);
+				assert(playingNow);
 			}
+			else
+				assert(levelTimer < START_BEAT);
 			return false;
 		}
 		else { // now that the beat has arrived
 			assert(levelTimer >= START_BEAT);
 			detonateTimer += (t / 60) * bpm;
 
-			if (DETONATE_DELAY - detonateTimer <= 1.0f) {
-				float aoeRadius = std::lerp(std::get<0>(EXPLOSION_RADIUS_RANGE), std::get<1>(EXPLOSION_RADIUS_RANGE), volume) * 2;
-				float timerRadius = (float)std::lerp(0, aoeRadius, 1.0f - (DETONATE_DELAY - detonateTimer));
-				gameObject_outer.transform->scale = glm::vec3(aoeRadius, aoeRadius, CUE_DEPTH);
-				gameObject_inner.transform->scale = glm::vec3(timerRadius, timerRadius, CUE_DEPTH);
+			if (DETONATE_DELAY - detonateTimer <= VISUAL_WARNING) {
+				float aoeRadius = std::lerp(std::get<0>(EXPLOSION_RADIUS_RANGE), std::get<1>(EXPLOSION_RADIUS_RANGE), volume);
+				float timerRadius = (float)std::lerp(0, aoeRadius, (VISUAL_WARNING - (DETONATE_DELAY - detonateTimer))/VISUAL_WARNING);
+
+				assert(gameObject_outer.transform);
+				gameObject_outer.transform->scale = glm::vec3(aoeRadius * 2, aoeRadius * 2, CUE_DEPTH);
+				assert(gameObject_inner.transform);
+				gameObject_inner.transform->scale = glm::vec3(timerRadius * 2, timerRadius * 2, CUE_DEPTH);
 			}
 
 			if (detonateTimer >= DETONATE_DELAY) {
@@ -384,59 +429,17 @@ std::list<Scene::Drawable>::iterator PlayMode::new_drawable(Mesh const &mesh, Sc
 	return ret;
 }
 
-// GLuint hexapod_meshes_for_lit_color_texture_program = 0;
-// Load< MeshBuffer > hexapod_meshes(LoadTagDefault, []() -> MeshBuffer const * {
-// 	MeshBuffer const *ret = new MeshBuffer(data_path("hexapod.pnct"));
-// 	hexapod_meshes_for_lit_color_texture_program = ret->make_vao_for_program(lit_color_texture_program->program);
-// 	return ret;
-// });
-
-// Load< Scene > hexapod_scene(LoadTagDefault, []() -> Scene const * {
-// 	return new Scene(data_path("hexapod.scene"), [&](Scene &scene, Scene::Transform *transform, std::string const &mesh_name){
-// 		Mesh const &mesh = hexapod_meshes->lookup(mesh_name);
-
-// 		scene.drawables.emplace_back(transform);
-// 		Scene::Drawable &drawable = scene.drawables.back();
-
-// 		drawable.pipeline = lit_color_texture_program_pipeline;
-
-// 		drawable.pipeline.vao = hexapod_meshes_for_lit_color_texture_program;
-// 		drawable.pipeline.type = mesh.type;
-// 		drawable.pipeline.start = mesh.start;
-// 		drawable.pipeline.count = mesh.count;
-
-// 	});
-// });
-
-// Load< Sound::Sample > dusty_floor_sample(LoadTagDefault, []() -> Sound::Sample const * {
-// 	return new Sound::Sample(data_path("dusty-floor.opus"));
-// });
-
-
-// Load< Sound::Sample > honk_sample(LoadTagDefault, []() -> Sound::Sample const * {
-// 	return new Sound::Sample(data_path("honk.wav"));
-// });
-
 Load < Sound::Sample > starter_soaring_sample(LoadTagDefault, []() -> Sound::Sample const * {
 	return new Sound::Sample(data_path("starter_soaring.wav"));
 });
 
 
 PlayMode::PlayMode() : scene(*game_scene) {
-	//get pointers to leg for convenience:
-	// for (auto &transform : scene.transforms) {
-	// 	if (transform.name == "Hip.FL") hip = &transform;
-	// 	else if (transform.name == "UpperLeg.FL") upper_leg = &transform;
-	// 	else if (transform.name == "LowerLeg.FL") lower_leg = &transform;
-	// }
-	// if (hip == nullptr) throw std::runtime_error("Hip not found.");
-	// if (upper_leg == nullptr) throw std::runtime_error("Upper leg not found.");
-	// if (lower_leg == nullptr) throw std::runtime_error("Lower leg not found.");
-
-	// hip_base_rotation = hip->rotation;
-	// upper_leg_base_rotation = upper_leg->rotation;
 	// lower_leg_base_rotation = lower_leg->rotation;
 
+	crash_background_fade = 0.0f;
+	Sound::stop_all_samples();
+	
 	// make player
 	{
 		Scene::Transform *transform = new Scene::Transform();
@@ -444,8 +447,7 @@ PlayMode::PlayMode() : scene(*game_scene) {
 
 		std::list<Scene::Drawable>::iterator drawable = new_drawable(game_meshes->lookup("Ship"), transform);
 		player = PlayMode::Player(transform, drawable);
-		// player.ouch(LoadTagDefault, []() -> Sound::Sample const * { return new Sound::Sample(data_path("player_ouch.wav"))});
-		// player.crash(LoadTagDefault, []() -> Sound::Sample const * { return new Sound::Sample(data_path("player_crashing.wav"))});
+		assert(player.collider.gameObject == player.gameObject);
 	}
 
 	// load chimebomb data from binary dump to create level
@@ -453,13 +455,15 @@ PlayMode::PlayMode() : scene(*game_scene) {
 		// load data
 		// How to from this cpp thread: https://cplusplus.com/forum/general/122330/
 		std::ifstream chartFile;
-		chartFile.open(data_path("starter_soaring.chrtt"), std::ios::binary);
+		chartFile.open(data_path("starter_soaring.chrt"), std::ios::binary);
 		ChimeBombData cbd;
 
+		int i = 0;
 		while (chartFile.read(reinterpret_cast<char*>(&cbd), sizeof(ChimeBombData)))
 		{
 			chimeBombDataList.emplace_back(cbd);
-			std::cout << cbd.measure << "." << cbd.beat << ": " << cbd.sample_name << std::endl; // measure and beat are fine, sample_name is not
+			// printf("adding %i\n", i);
+			i++;
 		}
 
 		chartFile.close();
@@ -473,9 +477,14 @@ PlayMode::PlayMode() : scene(*game_scene) {
 			Scene::Transform *transform_inner = new Scene::Transform();
 			std::list<Scene::Drawable>::iterator drawable_inner = new_drawable(game_meshes->lookup("AoE_Timer"), transform_inner);
 
-			ChimeBomb chimeBomb(transform_outer, drawable_outer, transform_inner, drawable_inner, data); // which leads to an unhandled exception
+			ChimeBomb chimeBomb(transform_outer, drawable_outer, transform_inner, drawable_inner,
+								data.sample_name, data.pan, data.pitch, data.volume, data.measure, data.beat); // which leads to an unhandled exception
 			chimeBombs.emplace_back(chimeBomb);
 		}
+
+		// for (auto cb : chimeBombs) {
+		// 	printf("(%zu/%zu Time) Measure %zu, Beat %f = %f\n", std::get<0>(timeSignature), std::get<1>(timeSignature), cb.measure, cb.beat, cb.START_BEAT);
+		// }
 	}
 
 	//get pointer to camera for convenience:
@@ -485,7 +494,8 @@ PlayMode::PlayMode() : scene(*game_scene) {
 	//start music loop playing:
 	// (note: position will be over-ridden in update())
 	// leg_tip_loop = Sound::loop_3D(*dusty_floor_sample, 1.0f, get_leg_tip_position(), 10.0f);
-	sound_track = Sound::play(*starter_soaring_sample);
+	sound_track = Sound::play(*starter_soaring_sample, 1.0f);
+
 	// const Sound::Sample song_sample = Sound::Sample(data_path("starter_soaring.wav"));
 	// Sound::play(song_sample);
 	// Sound::play(sound_track);
@@ -603,29 +613,35 @@ void PlayMode::update(float elapsed) {
 	// update game entitites
 	{
 		if (player.health > 0) {
-			if (chimeBombs.size() > 0 && explosions.size() > 0) {
+			if (chimeBombs.size() > 0 || explosions.size() > 0) {
+				int i = 0;
 				for (auto iter = chimeBombs.begin(); iter != chimeBombs.end(); /* later */) {
 					if (!(iter->update(elapsed, this))) {
 						// chime bomb still exists
-						iter++;
+						++iter;
 					}
 					else {
-						assert(iter->detonateTimer >= iter->START_BEAT); // detonated
+						// std::cout << "detonated a chime bomb" << std::endl;
 						auto const detonated = iter;
-						iter++;
+						++iter;
 						chimeBombs.erase(detonated);
 					}
+					// printf("%i\n", i);
+					i++;
 				}
 
 				for (auto iter = explosions.begin(); iter != explosions.end(); /* later */) {
 					if (!((*iter)->update(elapsed))) {
 						// explosion is still going
-						iter++;
+						// std::cout << "explosion iter++" << std::endl;
+						++iter;
 					}
 					else {
 						assert((*iter)->timer >= (*iter)->DURATION); // dissapated
+						// std::cout << "explosion finished" << std::endl;
 						auto const finished = iter;
-						iter++;
+						++iter;
+						scene.drawables.erase((*finished)->gameObject.drawable);
 						explosions.erase(finished);
 					}
 				}
@@ -633,6 +649,9 @@ void PlayMode::update(float elapsed) {
 			else { // victory!
 				victory = true;
 			}
+		}
+		else {
+			crash_background_fade += elapsed;
 		}
 		player.update(elapsed, this);
 	}
@@ -656,7 +675,8 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 	glUniform3fv(lit_color_texture_program->LIGHT_ENERGY_vec3, 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 0.95f)));
 	glUseProgram(0);
 
-	glClearColor(0.f, 0.f, 0.39f, 1.0f);
+	if (player.health > 0) glClearColor(0.f, 0.f, 0.39f, 1.0f);
+	else glClearColor(std::clamp(crash_background_fade, 0.0f, 0.39f), 0.0f, std::clamp(0.39f - crash_background_fade, 0.0f, 0.39f), 1.0f);
 	glClearDepth(1.0f); //1.0 is actually the default value to clear the depth buffer to, but FYI you can change it.
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

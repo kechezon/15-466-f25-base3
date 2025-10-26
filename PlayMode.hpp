@@ -41,9 +41,9 @@ struct PlayMode : Mode {
 
 	// Level info
 	static inline float bpm = 160;
-	static inline std::tuple< size_t, size_t > timeSignature;
+	static inline std::tuple< size_t, size_t > timeSignature = std::make_tuple(4, 4);;
 	static inline float pitchRange = 26; // Eb3-F5
-	static inline std::tuple< float, float > EXPLOSION_RADIUS_RANGE;
+	static inline std::tuple< float, float > EXPLOSION_RADIUS_RANGE = std::make_tuple(0.0f, 1.5f);
 
 	// General needs
 	struct GameObject;
